@@ -1,4 +1,4 @@
-1η Εργασία στο μάθημα (ΨΣ-512) - Πληροφοριακά Συστήματα<br/>
+2η Εργασία στο μάθημα (ΨΣ-512) - Πληροφοριακά Συστήματα<br/>
 <hr>
 Όνομα: Αλέξανδρος Παληάμπελος<br/>
 ΑΜ   : Ε16099<br/>
@@ -16,9 +16,9 @@ email: alexpap18@gmail.com<br/>
 
 Παρακάτω βρίσκονται τα παραδείγματα εκτελέσεων requests και των απαντησεων που παίρνουμε σε κάθε entrypoint :
 <pre>
-#########################
-###### 1 REGISTER #######
-#########################
+###########################
+### 1 User Registration ###
+###########################
 Request:
 Type: POST
 Url : http://0.0.0.0:5000//userRegistration
@@ -39,7 +39,7 @@ alex was added to the MongoDB (status=200)
 
 
 ##########################
-####### 2 LOGIN ##########
+####### 2 Login ##########
 ##########################
 Request:
 Type: POST
@@ -64,218 +64,88 @@ Response:
 --------------------------------
 
 
-##########################
-##### 3 GET STUDENT ######
-##########################
+############################
+## 3 Product Registration ##
+############################
 Request:
-Type: GET
-Url : http://0.0.0.0:5000/getstudent
+Type: POST
+Url : http://0.0.0.0:5000/productRegistration
 Headers:
 	key  : authorization
-	value: 6726435c-b57b-11eb-8fab-000c29b50a20
+	value: 877e8546-c77e-11eb-8996-0242c0a83003
 Body:
-{"email":"danasilva@ontagene.com"}
-
-Response:
-Student found: {
-    "_id": "5e99cffd7a781a4aac69daaa",
-    "yearOfBirth": 1999,
-    "name": "Dana Silva",
-    "email": "danasilva@ontagene.com"
+{
+    "name": "Jose Cuervo Tequila Silver 700ML", 
+    "category": "Alcohol Drinks",
+    "stock": 15,
+    "description": "Μια πραγματικά ασημένια τεκίλα, η Cuervo® Silver είναι η επιτομή της απαλότητας. Οι κύριοι αποσταγματοποιητές στην La Rojeña δημιούργησαν αυτό το μοναδικό 			    και ισορροπημένο μείγμα για να αναδείξει τις αποχρώσεις της αγαύης, καραμέλας, και φρέσκων μυρωδικών στο προφίλ της γεύσης της.",
+    "price": 22.6
 }
 
-->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
-  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
-->Αν το email δεν υπάρχει τότε
-  "No student found with the email given" (status=500)
-
-
---------------------------------
-
-
-##########################################
-# 4 RETURN STUDENTS WHO ARE 30 YEARS OLD #
-##########################################
-Request:
-Type: GET
-Url : http://0.0.0.0:5000/getstudents/thirties
-Headers:
-	key  : authorization
-	value: 6726435c-b57b-11eb-8fab-000c29b50a20
-
 Response:
-Found 2 students with age 30 : [
-    {
-        "_id": null,
-        "yearOfBirth": 1991,
-        "name": "Browning Rasmussen",
-        "address": [
-            {
-                "city": "Cuylerville",
-                "street": "Doone Court",
-                "postcode": 17331
-            }
-        ],
-        "email": "browningrasmussen@ontagene.com"
-    },
-    {
-        "gender": "male",
-        "_id": null,
-        "yearOfBirth": 1991,
-        "name": "Bennett Baker",
-        "email": "bennettbaker@ontagene.com"
-    }
-]
-
+The product with name 'Jose Cuervo Tequila Silver 700ML' was added to the MongoDB
 
 ->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
   μας επιστρέφρει "You don't have authorization, get out!" (status=401)
-->Αν δεν βρεθουν φοιτητες τότε
-  "No students found with age 30" (status=500)
 
+Σημ: Προυποθέτει να έχουμε κάνει login σαν administrator και να έχουμε πάρει το αντίστοιχο auth key
 
 
 --------------------------------
 
 
-###################################################
-# 5 RETURN STUDENTS WHO ARE AT LEAST 30 YEARS OLD #
-###################################################
-Request:
-Type: GET
-Url : http://0.0.0.0:5000/getstudents/oldies
-Headers:
-	key  : authorization
-	value: 6726435c-b57b-11eb-8fab-000c29b50a20
-
-Response:
-Found 44 students with age at least 30 : [......]
-
-->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
-  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
-->Αν δεν βρεθουν φοιτητες τότε
-  "No students found with age at least 30" (status=500)
-
-
---------------------------------
-
-
-#####################################
-# 6 RETURN STUDENT ADDRESS BY EMAIL #
-#####################################
-Request:
-Type: GET
-Url : http://0.0.0.0:5000/getstudentaddress
-Headers:
-	key  : authorization
-	value: 6726435c-b57b-11eb-8fab-000c29b50a20
-Body: 
-{ "email":"danasilva@ontagene.com" }
-
-Response:
-Here is the student's address: {
-    "street": "Lafayette Avenue",
-    "name": "Dana Silva",
-    "postcode": 11573
-}
-
-->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
-  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
-->Αν υπαρχει email αλλά όχι address τότε:
-  "The student has not an address" (status=500)
-->Αν δεν υπαρχει το email τότε
-  "Email dosent exists in DB" (status=500)
-
-
---------------------------------
-
-
-#############################
-###### 7 DELETE STUDENT #####
-#############################
+##########################
+### 4 Product Deletion ###
+##########################
 Request:
 Type: DELETE
-Url : http://0.0.0.0:5000/deletestudent
+Url : http://0.0.0.0:5000/productDeletion
+Headers:
 	key  : authorization
-	value: 6726435c-b57b-11eb-8fab-000c29b50a20
-Body: 
-{ "email":"spencercannon@ontagene.com" }
+	value: 877e8546-c77e-11eb-8996-0242c0a83003
+Body:
+{ "_id":"60be81cf8db7ab143482ccf7" }
 
 Response:
-Student with name: Spencer Cannon, was deleted.
+Product with id: 60be81cf8db7ab143482ccf7, was deleted.
 
 ->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
   μας επιστρέφρει "You don't have authorization, get out!" (status=401)
-->Αν δεν υπαρχει το email τότε
-  "Student with email: spencercannon@ontagene.com, dosen't exists in DB." (status=500)
+->Στην περίπτωση που το _id δεν υπάρχει τότε μας εμφανίζεται:
+Product with id: 60be81cf8db7ab143482ccf7, dosen't exists in DB.
+
+Σημ: Προυποθέτει να έχουμε κάνει login σαν administrator και να έχουμε πάρει το αντίστοιχο auth key
 
 
 --------------------------------
 
 
-######################################
-##### 8 INSERT STUDENT'S COURSES #####
-######################################
+########################
+### 5 Product Update ###
+########################
 Request:
 Type: PATCH
-Url : http://0.0.0.0:5000/addcourse
+Url : http://0.0.0.0:5000/productUpdate?name=Avga Large 6 Temaxia&price=3.80&stock=5
+Headers:
 	key  : authorization
-	value: 6726435c-b57b-11eb-8fab-000c29b50a20
-Body: 
-{
-    "email": "gillharmon@ontagene.com",
-    "courses": [
-        {"InfoSys":"10"}, 
-        {"Analisi 1":"0"}, 
-        {"Analisi 2":"0"}
-    ]
-} 
+	value: 877e8546-c77e-11eb-8996-0242c0a83003
+Body:
+{ "_id":"60be81978db7ab143482ccf6" }
 
 Response:
-Student's courses updated: {
-    "courses": [
-        {
-            "InfoSys": "10"
-        },
-        {
-            "Analisi 1": "5"
-        },
-        {
-            "Analisi 2": "0"
-        }
-    ],
-    "name": "Gill Harmon",
-    "email": "gillharmon@ontagene.com"
+Product's info updated: {
+    "name": "Avga Large 6 Temaxia",
+    "category": "Dairy Products",
+    "stock": 5,
+    "description": "Τα «Αυγά Βιολογικής Γεωργίας» από τα ΧΡΥΣΑ ΑΥΓΑ παράγονται από κότες που ζουν ελεύθερες 
+    σε εύφορους αγρότοπους και τρέφονται αποκλειστικά και μόνο με τις πιο αγνές, φυτικές τροφές Βιολογικής Γεωργίας.",
+    "price": 3.8
 }
 
 ->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
   μας επιστρέφρει "You don't have authorization, get out!" (status=401)
-->Αν δεν υπαρχει το email τότε
-  "Email dosen't exists in DB" (status=500)
+->Στην περίπτωση που το _id δεν υπάρχει τότε μας εμφανίζεται:
+  Product dosen't exists in DB.
 
-
---------------------------------
-
-
-################################
-##### 9 GET PASSED COURSES #####
-################################
-Request:
-Type: GET
-Url : http://0.0.0.0:5000/getpassedcourses
-	key  : authorization
-	value: 6726435c-b57b-11eb-8fab-000c29b50a20
-Body: 
-{ "email": "gillharmon@ontagene.com" } 
-
-Response:
-Gill Harmon has passed 2 courses. Here are the courses: {
-    "InfoSys": 10,
-    "Analisi 1": 5
-}
-
-->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
-  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
-->Αν δεν υπαρχει το email ή δεν έχει courses τότε
-  "Email dosen't exists in DB or student hasnt any courses registered" (status=500)
+Σημ: Προυποθέτει να έχουμε κάνει login σαν administrator και να έχουμε πάρει το αντίστοιχο auth key
   </pre>
