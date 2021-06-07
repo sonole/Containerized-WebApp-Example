@@ -128,7 +128,7 @@ Product with id: 60be81cf8db7ab143482ccf7, dosen't exists in DB.
 ########################
 Request:
 Type: PATCH
-Url : http://0.0.0.0:5000/productUpdate?name=Avga Large 6 Temaxia&price=3.80&stock=5
+Url : http://0.0.0.0:5000/productUpdate?name=Αυγά%20Βιολογικά%20Medium%206%20Τεμ%20OFFER!!&price=3.80&stock=5
 Headers:
 	key  : authorization
 	value: 877e8546-c77e-11eb-8996-0242c0a83003
@@ -137,7 +137,7 @@ Body:
 
 Response:
 Product's info updated: {
-    "name": "Avga Large 6 Temaxia",
+    name": "Αυγά Βιολογικά Medium 6 Τεμ OFFER!!",
     "category": "Dairy Products",
     "stock": 5,
     "description": "Τα «Αυγά Βιολογικής Γεωργίας» από τα ΧΡΥΣΑ ΑΥΓΑ παράγονται από κότες που ζουν ελεύθερες 
