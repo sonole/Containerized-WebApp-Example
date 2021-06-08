@@ -151,4 +151,71 @@ Product's info updated: {
   Product dosen't exists in DB.
 
 Σημ: Προυποθέτει να έχουμε κάνει login σαν administrator και να έχουμε πάρει το αντίστοιχο auth key
+
+
+--------------------------------
+
+
+#####################
+### 6 GET PRODUCT ###
+#####################
+Request:
+Type: GET
+Url : http://0.0.0.0:5000/productUpdate?name=Αυγά%20Βιολογικά%20Medium%206%20Τεμ%20OFFER!!&price=3.80&stock=5
+Headers:
+	key  : authorization
+	value: 877e8546-c77e-11eb-8996-0242c0a83003
+Body:
+{"name" : "Avga Viologika Medium 6 Tem OFFER!!"}
+or 
+{ "category" : "Dairy Products" } 
+or 
+{ "_id" : "60be81978db7ab143482ccf6" }
+
+
+Response:
+Found 4 product(s) with  the category: Dairy Products [
+    {
+        "name": "Fresko Gala Elafry 1,5% Lipara 1 lt, OLYMPOS",
+        "description": "Το 100% ελληνικό φρέσκο επιλεγμένο γάλα ΟΛΥΜΠΟΣ συλλέγεται καθημερινά 
+	από επιλεγμένες μονάδες που βρίσκονται σε μικρές αποστάσεις από τις εγκαταστάσεις μας 
+	και πληροί αυστηρότερα στάνταρ από αυτά που προβλέπει η ευρωπαϊκή νομοθεσία.",
+        "price": 1.48,
+        "category": "Dairy Products",
+        "product ID": "60be81658db7ab143482ccf5"
+    },
+    {
+        "name": "Avga Viologika Medium 6 Tem OFFER!!",
+        "description": "Τα «Αυγά Βιολογικής Γεωργίας» από τα ΧΡΥΣΑ ΑΥΓΑ παράγονται από κότες 
+	που ζουν ελεύθερες σε εύφορους αγρότοπους και τρέφονται αποκλειστικά και μόνο με τις 
+	πιο αγνές, φυτικές τροφές Βιολογικής Γεωργίας.",
+        "price": 3.5,
+        "category": "Dairy Products",
+        "product ID": "60bf71b0fe789a2bdd2da523"
+    },
+    {
+        "name": "Avga Viologika Medium 6 Tem OFFER!!",
+        "description": "Τα «Αυγά Βιολογικής Γεωργίας» από τα ΧΡΥΣΑ ΑΥΓΑ παράγονται από κότες 
+	που ζουν ελεύθερες σε εύφορους αγρότοπους και τρέφονται αποκλειστικά και μόνο με τις 
+	πιο αγνές, φυτικές τροφές Βιολογικής Γεωργίας.",
+        "price": 3.8,
+        "category": "Dairy Products",
+        "product ID": "60be81978db7ab143482ccf6"
+    },
+    {
+        "name": "Avga Viologika Medium 12 Tem OFFER!!",
+        "description": "Τα «Αυγά Βιολογικής Γεωργίας» από τα ΧΡΥΣΑ ΑΥΓΑ παράγονται από κότες
+	που ζουν ελεύθερες σε εύφορους αγρότοπους και τρέφονται αποκλειστικά και μόνο με τις 
+	πιο αγνές, φυτικές τροφές Βιολογικής Γεωργίας.",
+        "price": 6.4,
+        "category": "Dairy Products",
+        "product ID": "60bf710afe789a2bdd2da522"
+    }
+]
+
+->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
+  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
+->Search by name => alphabetical sort
+->Search by price => price sort
+->Στην περίπτωση που το το search αποτυγχάνει πάντα εμφανίζεται κάποιο αντίστοιχο μήνυμα
   </pre>
