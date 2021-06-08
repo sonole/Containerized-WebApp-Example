@@ -161,7 +161,7 @@ Product's info updated: {
 #####################
 Request:
 Type: GET
-Url : http://0.0.0.0:5000/productUpdate?name=Αυγά%20Βιολογικά%20Medium%206%20Τεμ%20OFFER!!&price=3.80&stock=5
+Url : http://0.0.0.0:5000/getProduct
 Headers:
 	key  : authorization
 	value: 877e8546-c77e-11eb-8996-0242c0a83003
@@ -218,4 +218,93 @@ Found 4 product(s) with  the category: Dairy Products [
 ->Search by name => alphabetical sort
 ->Search by price => price sort
 ->Στην περίπτωση που το το search αποτυγχάνει πάντα εμφανίζεται κάποιο αντίστοιχο μήνυμα
+
+Σημ: Προυποθέτει να έχουμε κάνει login σαν απλός χρήστης και να έχουμε πάρει το αντίστοιχο auth key
+
+
+--------------------------------
+
+
+#####################
+### 7 ADD TO CART ###
+#####################
+Request:
+Type: POST
+Url : http://0.0.0.0:5000/addToCart
+Headers:
+	key  : authorization
+	value: 877e8546-c77e-11eb-8996-0242c0a83003
+Body:
+{
+    "_id" : "60bf71b0fe789a2bdd2da523",
+    "quantity": 2
+}
+
+Response:
+Product Added to cart{
+    "60bf71b0fe789a2bdd2da523": 2
+}
+
+->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
+  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
+->Στην περίπτωση που το id του προιοντος δεν υπάρχει ή αν το quantity δεν ειναι int,
+  τότε έχουμε αντίστοιχα μηνύματα σφάλματος
+->Αν ξαναστείλουμε το request τότε απλά για το ίδιο id το quantity αυξάνεται ανάλογα με το request.
+->Πάντα ελέγχεται να μην υπερβαίνουμε το απόθεμα του προίοντος
+
+Σημ: Προυποθέτει να έχουμε κάνει login σαν απλός χρήστης και να έχουμε πάρει το αντίστοιχο auth key
+
+
+--------------------------------
+
+
+####################
+###### 8 CART ######
+####################
+Request:
+Type: GET
+Url : http://0.0.0.0:5000/cart
+Headers:
+	key  : authorization
+	value: 877e8546-c77e-11eb-8996-0242c0a83003
+
+Response:
+Here is your cart
+{
+    "Jose Cuervo Tequila Silver 700ML": 2,
+    "Fresko Gala Elafry 1,5% Lipara 1 lt, OLYMPOS": 1,
+    "Avga Viologika Medium 6 Tem OFFER!!": 2
+}
+Total: 54.28
+
+->Στην περίπτωση που δεν έχει μπει κανένα προιόν στο καλάθι τότε
+  μας επιστρέφει "First you have to add products to cart." (status=200)
+->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
+  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
+
+Σημ: Προυποθέτει να έχουμε κάνει login σαν απλός χρήστης και να έχουμε πάρει το αντίστοιχο auth key
+
+
+--------------------------------
+
+
+########################
+## 8 REMOVE FROM CART ##
+########################
+Request:
+Type: DELETE
+Url : http://0.0.0.0:5000/removeFromCart/60be81978db7ab143482ccf6
+Headers:
+	key  : authorization
+	value: 877e8546-c77e-11eb-8996-0242c0a83003
+
+Response:
+
+
+->
+->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
+  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
+
+Σημ: Προυποθέτει να έχουμε κάνει login σαν απλός χρήστης και να έχουμε πάρει το αντίστοιχο auth key
+
   </pre>
