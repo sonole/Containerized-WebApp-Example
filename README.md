@@ -127,7 +127,7 @@ Product with id: 60be81cf8db7ab143482ccf7, dosen't exists in DB.
 ### 5 Product Update ###
 ########################
 Request:
-Type: PATCH
+Type: PUT
 Url : http://0.0.0.0:5000/productUpdate?name=Αυγά%20Βιολογικά%20Medium%206%20Τεμ%20OFFER!!&price=3.80&stock=5
 Headers:
 	key  : authorization
@@ -140,8 +140,9 @@ Product's info updated: {
     name": "Αυγά Βιολογικά Medium 6 Τεμ OFFER!!",
     "category": "Dairy Products",
     "stock": 5,
-    "description": "Τα «Αυγά Βιολογικής Γεωργίας» από τα ΧΡΥΣΑ ΑΥΓΑ παράγονται από κότες που ζουν ελεύθερες 
-    σε εύφορους αγρότοπους και τρέφονται αποκλειστικά και μόνο με τις πιο αγνές, φυτικές τροφές Βιολογικής Γεωργίας.",
+    "description": "Τα «Αυγά Βιολογικής Γεωργίας» από τα ΧΡΥΣΑ ΑΥΓΑ παράγονται 
+    από κότες που ζουν ελεύθερες σε εύφορους αγρότοπους και τρέφονται αποκλειστικά 
+    και μόνο με τις πιο αγνές, φυτικές τροφές Βιολογικής Γεωργίας.",
     "price": 3.8
 }
 
@@ -272,10 +273,10 @@ Response:
 Here is your cart
 {
     "Jose Cuervo Tequila Silver 700ML": 2,
-    "Fresko Gala Elafry 1,5% Lipara 1 lt, OLYMPOS": 1,
-    "Avga Viologika Medium 6 Tem OFFER!!": 2
+    "Fresko Gala Elafry 1,5% Lipara 1 lt, OLYMPOS": 2,
+    "Avga Viologika Medium 6 Tem OFFER!!": 1
 }
-Total: 54.28
+Total: 51.96
 
 ->Στην περίπτωση που δεν έχει μπει κανένα προιόν στο καλάθι τότε
   μας επιστρέφει "First you have to add products to cart." (status=200)
@@ -289,7 +290,7 @@ Total: 54.28
 
 
 ########################
-## 8 REMOVE FROM CART ##
+## 9 REMOVE FROM CART ##
 ########################
 Request:
 Type: DELETE
@@ -299,12 +300,125 @@ Headers:
 	value: 877e8546-c77e-11eb-8996-0242c0a83003
 
 Response:
+Product has been removed from cart
+Your new cart
+{
+    "Jose Cuervo Tequila Silver 700ML": 2,
+    "Fresko Gala Elafry 1,5% Lipara 1 lt, OLYMPOS": 2
+}
+Total: 48.16
 
-
-->
+->Στην περίπτωση που το καλάθι μας είναι άδειο τότε δεν μπορεί να δαιγραφεί κάποιο προιον και άρα
+  μας επιστρέφει "First you have to add products to cart." (status=500)
+->Στην περίπτωση που το προιον δεν υπάρχει στο καλάθι
+  μας επιστρέφει "Product has not been added to cart." (status=500)
 ->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
   μας επιστρέφρει "You don't have authorization, get out!" (status=401)
 
 Σημ: Προυποθέτει να έχουμε κάνει login σαν απλός χρήστης και να έχουμε πάρει το αντίστοιχο auth key
+
+
+--------------------------------
+
+
+########################
+## 10 PLACE AN ORDER ###
+########################
+Request:
+Type: POST
+Url : http://0.0.0.0:5000/order
+Headers:
+	key  : authorization
+	value: 877e8546-c77e-11eb-8996-0242c0a83003
+Body:
+{
+    "card_no" : 1234567812345678
+}
+
+Response:
+Here is your receipt
+
+We are charging the amount of 77.26 and then we place the order
+********DS MARKETS********
+AFM: 099360626, DOY:PEIRAIA
+Ilioupoleos 56,
+17236, GR
+**************************
+{
+    "Patron Silver Tequila 35cl": 2,
+    "Avga Viologika Medium 12 Tem OFFER!!": 3
+}
+Value: 77.26
+Thank you for choosing us!
+***09/06/2021 09: 16: 55***
+
+
+
+->Στην περίπτωση που δεν έχουμε δώσει int ή 16ψηφιο int σαν "card_no" τότε
+  μας επιστρέφει "You have to enter a 16-digit number" (status=500)
+->Στην περίπτωση που το καλάθι είναι άδειο
+  μας επιστρέφει "Cart is empty." (status=500)
+->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
+  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
+
+Σημ: Προυποθέτει να έχουμε κάνει login σαν απλός χρήστης και να έχουμε πάρει το αντίστοιχο auth key
+
+
+--------------------------------
+
+
+########################
+## 11 ORDERS HISTORY ###
+########################
+Request:
+Type: GET
+Url : http://0.0.0.0:5000/getOrders
+Headers:
+	key  : authorization
+	value: 877e8546-c77e-11eb-8996-0242c0a83003
+
+Response:
+You have placed 2 orders.
+Details: [
+    {
+        "Fresko Gala Elafry 1,5% Lipara 1 lt, OLYMPOS": 1,
+        "Αυγά Βιολογικά Medium 6 Τεμ OFFER!!": 1
+    },
+    {
+        "Patron Silver Tequila 35cl": 2,
+        "Avga Viologika Medium 12 Tem OFFER!!": 3
+    }
+]
+
+->Στην περίπτωση που δεν έχουμε κάνει καμία παραγγελία δηλ. orderHistory == 0
+  μας επιστρέφει "You have to place an order first" (status=500)
+->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
+  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
+
+Σημ: Προυποθέτει να έχουμε κάνει login σαν απλός χρήστης και να έχουμε πάρει το αντίστοιχο auth key
+
+
+--------------------------------
+
+
+########################
+## 12 DELETE ACCOUNT ###
+########################
+Request:
+Type: DELETE
+Url : http://0.0.0.0:5000/deleteAccount	
+Headers:
+	key  : authorization
+	value: 877e8546-c77e-11eb-8996-0242c0a83003
+
+Response:
+You are logged out.
+And your account has been removed.
+
+->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
+  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
+
+Σημ: Προυποθέτει να έχουμε κάνει login σαν απλός χρήστης και να έχουμε πάρει το αντίστοιχο auth key
+
 
   </pre>
