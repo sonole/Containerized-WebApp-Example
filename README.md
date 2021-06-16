@@ -1,34 +1,37 @@
 # (ΨΣ-512) - Πληροφοριακά Συστήματα
-## 2η Εργασία ypoxreotiki ergasia
+## 2η Yποχρεωτική Εργασία 
 
 **Διδάσκοντες:**
-Onoma | email | github acc
+Όνομα | Email | GitHub
 ------------ | ------------- | -------------
 Δημοσθένης Κυριαζής | dimos@unipi.gr| 
 Χρυσόστομος Συμβουλίδης |  simvoul@unipi.gr | @csymvoul 
 Jean-Didier Totow | totow@unipi.gr | @jdtotow 
 
-**Stoxiea foititi:**
-Onoma | AM | email
+**Στοιχεία φοιτητή:**
+Όνομα | AM | Email
 ------------ | ------------- | -------------
 Αλέξανδρος Παληάμπελος | E16099 | alexpap18@gmail.com
 
 <br/>
 <hr>
 
-### Pos trexoume to web service sto pc mas
-1) kanoume clone to repo<br/>
-2) Apo ton fakelo Ergasia_2_E16099_Paliampelos_Alexandros allazoume dir ston dsmarkets<br/>
+### Οδηγίες εκτέλεσης
+Όπως ζητήθηκε έχει γίνει containerize το web service που καλούμαστε να υλοποιήσουμε,
+το docker-compose είναι υπεύθυνο για την ταυτόχρονη λειτουργία των 2 services (MongoDB, Flask)
+Ενώ το Docker image έχει base os Ubuntu 18.04, Python3, pip, data folder*, expose πόρτα 5000, entrypoint το "service.py"
+1) Κάνουμε clone το repo<br/>
+2) Από τον φάκελο "Ergasia_2_E16099_Paliampelos_Alexandros" αλλάζουμε dir στον "dsmarkets"<br/>
 <pre>
 	$ cd dsmarkets
 	$ ls 
 	docker-compose.yml  flask
 </pre>
-3) Από τον φάκελο που βρίσκονται τα δύο αρχεία docker-compose.yml και flask, τρέχουμε to docker me entoli<br/>
+3) Από τον φάκελο που βρίσκονται τα δύο αρχεία docker-compose.yml και flask, τρέχουμε to docker με εντολή<br/>
 <pre>
 	$ docker-compose up -d
 </pre>
-4) Otan ta 2 containers exoun stithei tha exoume minima<br/>
+4) Οταν τα 2 services τρέχουν θα έχουμε το εξής μήνυμα:<br/>
 ![Containers Ready](https://raw.githubusercontent.com/sonole/sonole/main/assets/containers_ready.jpg)
 5) Έπειτα αντιγράφουμε τα δύο collections στο container mongodb με την εξής εντολή:<br/>
 <pre>
@@ -38,21 +41,21 @@ Onoma | AM | email
 <pre>
 	$ docker exec -it mongodb mongoimport --db=InfoSys --collection=Users --file=users.json && docker exec -it mongodb mongoimport --db=InfoSys --collection=Products --file=products.json
 </pre>
-7) Epiveveonoume oti to flask service trexei xwris problma<br/>
+7) Επιβεβαιώνουμε οτι το flask service τρέχει χωρίς κάποιο πρόβλημα<br/>
 <pre>
 	$ docker logs flask
 </pre>
 ![Flask Up And Running](https://raw.githubusercontent.com/sonole/sonole/main/assets/flask_ok.jpg)
 
 <br/>
-Sim:
-Mias kai sto sigkekrimeno pliroforikako sistima oi xristies pou mporoun na kanoun egrafi meso tou web-service<br/>
-exoun dikaiomata mono san aplos xristis kai oxi san diaxiristis, gia na prosthesoume enan administrator ekteloume:<br/>
+Σημείωση:
+Μιας και στο συγκεκριμένο πληροφοριακό σύστημα οι χρήστες που μπορούν να κάνουν εγγραφη μέσο του web-service<br/>
+έχουν δικαιώματα μόνο σαν απλός χρήστης και όχι σαν διαχειριστής, για να προσθέσουμε έναν administrator εκτελούμε:<br/>
 <pre>
 	$ docker exec -it mongodb mongo --port 27017
 	$ db.Users.insertOne({"email":"admin@dsmarket.com","password":"admin","category":"administrator"})
 </pre>
-Sto collection users pou prosthesame sto vima 5, o parapano diaxiristis exei prostethei hdh.<br/>
+Στο collection "Users" που προσθέσαμε στο βήμα 5, ο παραπάνω διαχειριστής έχει προστεθεί ήδη.<br/>
 
 <br/>
 <hr>
