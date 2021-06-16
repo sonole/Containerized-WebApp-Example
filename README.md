@@ -1,15 +1,22 @@
-2η Εργασία στο μάθημα (ΨΣ-512) - Πληροφοριακά Συστήματα<br/>
+# (ΨΣ-512) - Πληροφοριακά Συστήματα
+## 2η Εργασία ypoxreotiki ergasia
+
+**Διδάσκοντες:**
+Onoma | email | github acc
+------------ | ------------- | -------------
+Δημοσθένης Κυριαζής | dimos@unipi.gr| 
+Χρυσόστομος Συμβουλίδης |  simvoul@unipi.gr | @csymvoul 
+Jean-Didier Totow | totow@unipi.gr | @jdtotow 
+
+**Stoxiea foititi:**
+Onoma | AM | email
+------------ | ------------- | -------------
+Αλέξανδρος Παληάμπελος | E16099 | alexpap18@gmail.com
+
+<br/>
 <hr>
-Όνομα: Αλέξανδρος Παληάμπελος<br/>
-ΑΜ   : Ε16099<br/>
-email: alexpap18@gmail.com<br/>
-<hr>
-Διδάσκοντες:<br/>
-* Δημοσθένης Κυριαζής, dimos@unipi.gr<br/>
-* Χρυσόστομος Συμβουλίδης, simvoul@unipi.gr<br/>
-* Jean-Didier Totow, totow@unipi.gr<br/>
-<hr>
-Pos trexoume to web service sto pc mas.<br/>
+
+### Pos trexoume to web service sto pc mas
 1) kanoume clone to repo<br/>
 2) Apo ton fakelo Ergasia_2_E16099_Paliampelos_Alexandros allazoume dir ston dsmarkets<br/>
 <pre>
@@ -20,35 +27,37 @@ Pos trexoume to web service sto pc mas.<br/>
 3) Από τον φάκελο που βρίσκονται τα δύο αρχεία docker-compose.yml και flask, τρέχουμε to docker me entoli<br/>
 <pre>
 	$ docker-compose up -d
-	![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
 </pre>
 4) Otan ta 2 containers exoun stithei tha exoume minima<br/>
+![Containers Ready](https://raw.githubusercontent.com/sonole/sonole/main/assets/containers_ready.jpg)
 5) Έπειτα αντιγράφουμε τα δύο collections στο container mongodb με την εξής εντολή:<br/>
 <pre>
-	$ docker cp flask/data/users.json mongodb:/users.json && 
-	docker cp flask/data/products.json mongodb:/products.json
+	$ docker cp flask/data/users.json mongodb:/users.json && docker cp flask/data/products.json mongodb:/products.json
 </pre>
 6) Τέλος κάνουμε import στην βάση InfoSys τα δύο αρχεία με την εξής εντολή:<br/>
 <pre>
-	$ docker exec -it mongodb mongoimport --db=InfoSys --collection=Users --file=users.json && 
-	docker exec -it mongodb mongoimport --db=InfoSys --collection=Products --file=products.json
+	$ docker exec -it mongodb mongoimport --db=InfoSys --collection=Users --file=users.json && docker exec -it mongodb mongoimport --db=InfoSys --collection=Products --file=products.json
 </pre>
 7) Epiveveonoume oti to flask service trexei xwris problma<br/>
 <pre>
 	$ docker logs flask
 </pre>
+![Flask Up And Running](https://raw.githubusercontent.com/sonole/sonole/main/assets/flask_ok.jpg)
+
 <br/>
+Sim:
 Mias kai sto sigkekrimeno pliroforikako sistima oi xristies pou mporoun na kanoun egrafi meso tou web-service<br/>
 exoun dikaiomata mono san aplos xristis kai oxi san diaxiristis, gia na prosthesoume enan administrator ekteloume:<br/>
 <pre>
 	$ docker exec -it mongodb mongo --port 27017
 	$ db.Users.insertOne({"email":"admin@dsmarket.com","password":"admin","category":"administrator"})
 </pre>
-Sim: sto collection users pou prosthesame sto vima 5, o parapano diaxiristis exei prostethei hdh.<br/>
+Sto collection users pou prosthesame sto vima 5, o parapano diaxiristis exei prostethei hdh.<br/>
+
 <br/>
 <hr>
-<br/>
-Παρακάτω βρίσκονται τα παραδείγματα εκτελέσεων requests και των απαντησεων που παίρνουμε σε κάθε entrypoint :
+
+### Παρακάτω βρίσκονται τα παραδείγματα εκτελέσεων requests και των απαντησεων που παίρνουμε σε κάθε entrypoint :
 <pre>
 ###########################
 ### 1 User Registration ###
@@ -157,7 +166,7 @@ Type: PUT
 Url : http://0.0.0.0:5000/productUpdate?name=Αυγά%20Βιολογικά%20Medium%206%20Τεμ%20OFFER!!&price=3.80&stock=5
 Headers:
 	key  : authorization
-	value: 877e8546-c77e-11eb-8996-0242c0a83003
+	value: 6726435c-b57b-11eb-8fab-000c29b50a20
 Body:
 { "_id":"60be81978db7ab143482ccf6" }
 
@@ -189,7 +198,7 @@ Type: GET
 Url : http://0.0.0.0:5000/getProduct
 Headers:
 	key  : authorization
-	value: 877e8546-c77e-11eb-8996-0242c0a83003
+	value: 6726435c-b57b-11eb-8fab-000c29b50a20
 Body:
 {"name" : "Avga Viologika Medium 6 Tem OFFER!!"}
 or 
@@ -256,7 +265,7 @@ Type: POST
 Url : http://0.0.0.0:5000/addToCart
 Headers:
 	key  : authorization
-	value: 877e8546-c77e-11eb-8996-0242c0a83003
+	value: 6726435c-b57b-11eb-8fab-000c29b50a20
 Body:
 {
     "_id" : "60bf71b0fe789a2bdd2da523",
@@ -287,7 +296,7 @@ Type: GET
 Url : http://0.0.0.0:5000/cart
 Headers:
 	key  : authorization
-	value: 877e8546-c77e-11eb-8996-0242c0a83003
+	value: 6726435c-b57b-11eb-8fab-000c29b50a20
 
 Response:
 Here is your cart
@@ -315,7 +324,7 @@ Type: DELETE
 Url : http://0.0.0.0:5000/removeFromCart/60be81978db7ab143482ccf6
 Headers:
 	key  : authorization
-	value: 877e8546-c77e-11eb-8996-0242c0a83003
+	value: 6726435c-b57b-11eb-8fab-000c29b50a20
 
 Response:
 Product has been removed from cart
@@ -345,7 +354,7 @@ Type: POST
 Url : http://0.0.0.0:5000/order
 Headers:
 	key  : authorization
-	value: 877e8546-c77e-11eb-8996-0242c0a83003
+	value: 6726435c-b57b-11eb-8fab-000c29b50a20
 Body:
 {
     "card_no" : 1234567812345678
@@ -389,7 +398,7 @@ Type: GET
 Url : http://0.0.0.0:5000/getOrders
 Headers:
 	key  : authorization
-	value: 877e8546-c77e-11eb-8996-0242c0a83003
+	value: 6726435c-b57b-11eb-8fab-000c29b50a20
 
 Response:
 You have placed 2 orders.
@@ -421,7 +430,7 @@ Type: DELETE
 Url : http://0.0.0.0:5000/deleteAccount	
 Headers:
 	key  : authorization
-	value: 877e8546-c77e-11eb-8996-0242c0a83003
+	value: 6726435c-b57b-11eb-8fab-000c29b50a20
 
 Response:
 You are logged out.
