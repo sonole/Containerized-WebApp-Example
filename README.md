@@ -18,7 +18,7 @@ Jean-Didier Totow | totow@unipi.gr | @jdtotow
 
 ### Οδηγίες εκτέλεσης
 Όπως ζητήθηκε έχει γίνει containerize το web service που καλούμαστε να υλοποιήσουμε,<br/>
-το docker-compose είναι υπεύθυνο για την ταυτόχρονη λειτουργία των 2 services (MongoDB, Flask)<br/>
+το docker-compose είναι υπεύθυνο για την ταυτόχρονη λειτουργία των 2 container (MongoDB, Flask)<br/>
 Ενώ το Docker image έχει base os Ubuntu 18.04, Python3, pip, data folder*, expose πόρτα 5000, entrypoint το "service.py"<br/>
 1) Κάνουμε clone το repo<br/>
 2) Από τον φάκελο "Ergasia_2_E16099_Paliampelos_Alexandros" αλλάζουμε dir στον "dsmarkets"<br/>
@@ -31,7 +31,7 @@ Jean-Didier Totow | totow@unipi.gr | @jdtotow
 <pre>
 	$ docker-compose up -d
 </pre>
-4) Οταν τα 2 services τρέχουν θα έχουμε το εξής μήνυμα:<br/>
+4) Οταν τα 2 containers τρέχουν θα έχουμε το εξής μήνυμα:<br/>
 ![Containers Ready](https://raw.githubusercontent.com/sonole/sonole/main/assets/containers_ready.jpg)
 5) Έπειτα αντιγράφουμε τα δύο collections στο container mongodb με την εξής εντολή:<br/>
 <pre>
