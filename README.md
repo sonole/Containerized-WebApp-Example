@@ -4,7 +4,8 @@
 ΑΜ   : Ε16099<br/>
 email: alexpap18@gmail.com<br/>
 <hr>
-Διδάσκοντες εργαστηρίου:<br/>
+Διδάσκοντες:<br/>
+* Δημοσθένης Κυριαζής, dimos@unipi.gr<br/>
 * Χρυσόστομος Συμβουλίδης, simvoul@unipi.gr<br/>
 * Jean-Didier Totow, totow@unipi.gr<br/>
 <hr>
