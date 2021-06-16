@@ -9,12 +9,44 @@ email: alexpap18@gmail.com<br/>
 * Χρυσόστομος Συμβουλίδης, simvoul@unipi.gr<br/>
 * Jean-Didier Totow, totow@unipi.gr<br/>
 <hr>
-Στο αρχείο app.py υλοιποιούνται όλα τα ζητούμενα entrypoints. <br/>
-Ενώ το αρχείο prepare_app.py κάνει όλες τις απαραίτητες ενέργειες<br>
-ώστε να τρέξει το app.py χωρίς κάποιο πρόβλημα.<br/>
-Σημ: θα πρέπει στον ίδιο φάκελο να είναι και το students.json που θα γίνει import απο το prepare_app.py
+Pos trexoume to web service sto pc mas.<br/>
+1) kanoume clone to repo<br/>
+2) Apo ton fakelo Ergasia_2_E16099_Paliampelos_Alexandros allazoume dir ston dsmarkets<br/>
+<pre>
+	$ cd dsmarkets
+	$ ls 
+	docker-compose.yml  flask
+</pre>
+3) Από τον φάκελο που βρίσκονται τα δύο αρχεία docker-compose.yml και flask, τρέχουμε to docker me entoli<br/>
+<pre>
+	$ docker-compose up -d
+</pre>
+4) Otan ta 2 containers exoun stithei tha exoume minima<br/>
+5) Έπειτα αντιγράφουμε τα δύο collections στο container mongodb με την εξής εντολή:<br/>
+<pre>
+	$ docker cp flask/data/users.json mongodb:/users.json && 
+	docker cp flask/data/products.json mongodb:/products.json
+</pre>
+6) Τέλος κάνουμε import στην βάση InfoSys τα δύο αρχεία με την εξής εντολή:<br/>
+<pre>
+	$ docker exec -it mongodb mongoimport --db=InfoSys --collection=Users --file=users.json && 
+	docker exec -it mongodb mongoimport --db=InfoSys --collection=Products --file=products.json
+</pre>
+7) Epiveveonoume oti to flask service trexei xwris problma<br/>
+<pre>
+	$ docker logs flask
+</pre>
+<br/>
+Mias kai sto sigkekrimeno pliroforikako sistima oi xristies pou mporoun na kanoun egrafi meso tou web-service<br/>
+exoun dikaiomata mono san aplos xristis kai oxi san diaxiristis, gia na prosthesoume enan administrator ekteloume:<br/>
+<pre>
+	$ docker exec -it mongodb mongo --port 27017
+	$ db.Users.insertOne({"email":"admin@dsmarket.com","password":"admin","category":"administrator"})
+</pre>
+Sim: sto collection users pou prosthesame sto vima 5, o parapano diaxiristis exei prostethei hdh.<br/>
+<br/>
 <hr>
-
+<br/>
 Παρακάτω βρίσκονται τα παραδείγματα εκτελέσεων requests και των απαντησεων που παίρνουμε σε κάθε entrypoint :
 <pre>
 ###########################
@@ -34,11 +66,8 @@ alex was added to the MongoDB (status=200)
 
 Στην περίπτωση που το email υπάρχει ήδη
 μας επιστρέφρει "A user with the given email already exists" (status=400)
-
-
---------------------------------
-
-
+</pre>
+<pre>
 ##########################
 ####### 2 Login ##########
 ##########################
@@ -60,11 +89,9 @@ Response:
 
 Στην περίπτωση που ο συνδιασμός email+pass δεν υπάρχει 
 μας επιστρέφρει "Wrong email or password" (status=400)
-
-
---------------------------------
-
-
+</pre>
+</br>
+<pre>
 ############################
 ## 3 Product Registration ##
 ############################
