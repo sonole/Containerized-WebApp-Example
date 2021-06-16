@@ -19,9 +19,10 @@ products = db['Products']
 # Initiate Flask App
 app = Flask(__name__)
 app.secret_key = uuid.uuid4().hex
-app.permanent_session_lifetime = timedelta(minutes=2)
+# The cart expires after 2 minutes (testing)
+#app.permanent_session_lifetime = timedelta(minutes=2)
 # The cart expires after 60 minutes
-#app.permanent_session_lifetime = timedelta(minutes=60)
+app.permanent_session_lifetime = timedelta(minutes=60)
 
 users_sessions = {}
 admins_sessions = {}
