@@ -20,6 +20,7 @@ Pos trexoume to web service sto pc mas.<br/>
 3) Από τον φάκελο που βρίσκονται τα δύο αρχεία docker-compose.yml και flask, τρέχουμε to docker me entoli<br/>
 <pre>
 	$ docker-compose up -d
+	![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
 </pre>
 4) Otan ta 2 containers exoun stithei tha exoume minima<br/>
 5) Έπειτα αντιγράφουμε τα δύο collections στο container mongodb με την εξής εντολή:<br/>
