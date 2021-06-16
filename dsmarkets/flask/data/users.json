@@ -1,3 +1,0 @@
-{"_id":{"$oid":"60bddecd4c4d4cb78eba9b7c"},"email":"alex","password":"passalex","category":"simple_user","orderHistory":2,"orderDetails":[{"Fresko Gala Elafry 1,5% Lipara 1 lt, OLYMPOS":1,"Αυγά Βιολογικά Medium 6 Τεμ OFFER!!":1},{"Patron Silver Tequila 35cl":2,"Avga Viologika Medium 12 Tem OFFER!!":3}]}
-{"_id":{"$oid":"60bddf5d4c4d4cb78eba9b7d"},"email":"alex@gmail.com","password":"passalex","category":"simple_user","orderHistory":0}
-{"_id":{"$oid":"60bde4bdb19eb927016d151d"},"email":"admin@dsmarket.com","password":"admin","category":"administrator"}
