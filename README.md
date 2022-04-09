@@ -1,22 +1,8 @@
-# (ΨΣ-512) - Πληροφοριακά Συστήματα
-## 2η Yποχρεωτική Εργασία 
+<h1>DSMarkets</h1>
+<p>Containerized Web App using Docker, Flask, MongoDB</p>
+<br><hr><br>
 
-**Διδάσκοντες:**
-Όνομα | Email | GitHub
------------- | ------------- | -------------
-Δημοσθένης Κυριαζής | dimos@unipi.gr| 
-Χρυσόστομος Συμβουλίδης |  simvoul@unipi.gr | @csymvoul 
-Jean-Didier Totow | totow@unipi.gr | @jdtotow 
-
-**Στοιχεία φοιτητή:**
-Όνομα | AM | Email
------------- | ------------- | -------------
-Αλέξανδρος Παληάμπελος | E16099 | alexpap18@gmail.com
-
-<br/>
-<hr>
-
-### Οδηγίες εκτέλεσης
+<h3>Οδηγίες εκτέλεσης</h3>
 Όπως ζητήθηκε έχει γίνει containerize το web service που καλούμαστε να υλοποιήσουμε,<br/>
 το docker-compose είναι υπεύθυνο για την ταυτόχρονη λειτουργία των 2 container (MongoDB, Flask)<br/>
 Ενώ το Docker image έχει base os Ubuntu 18.04, Python3, pip, data folder*, expose πόρτα 5000, entrypoint το "service.py"<br/>
