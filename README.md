@@ -47,8 +47,8 @@ Body:
 Response:
 alex was added to the MongoDB (status=200)
 
-Στην περίπτωση που το email υπάρχει ήδη
-μας επιστρέφρει "A user with the given email already exists" (status=400)
+In case the email already exists it
+returns us "A user with the given email already exists" (status = 400)
 </pre>
 </br>
 <pre>
@@ -71,8 +71,8 @@ Response:
 }
 
 
-Στην περίπτωση που ο συνδιασμός email+pass δεν υπάρχει 
-μας επιστρέφρει "Wrong email or password" (status=400)
+In case the email + pass combination does not exist
+it returns us "Wrong email or password" (status=400)
 </pre>
 </br>
 <pre>
@@ -100,10 +100,10 @@ Body:
 Response:
 The product with name 'Jose Cuervo Tequila Silver 700ML' was added to the MongoDB
 
-->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
-  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
+->In case one of the uuid is not in the list then
+  it returns us "You do not have authorization, get out!" (status = 401)
 
-Σημ: Προυποθέτει να έχουμε κάνει login σαν administrator και να έχουμε πάρει το αντίστοιχο auth key
+Note: It presupposes that we have logged in as administrator and we have received the corresponding auth key
 </pre>
 </br>
 <pre>
@@ -122,12 +122,12 @@ Body:
 Response:
 Product with id: 60be81cf8db7ab143482ccf7, was deleted.
 
-->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
-  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
-->Στην περίπτωση που το _id δεν υπάρχει τότε μας εμφανίζεται:
-Product with id: 60be81cf8db7ab143482ccf7, dosen't exists in DB.
+-> In case one of the uuid is not in the list then
+   it returns us "You have no authorization, get out!" (status = 401)
+-> In case _id does not exist then it returns:
+   "Product with ID: 60be81cf8db7ab143482ccf7, not available on DB."
 
-Σημ: Προυποθέτει να έχουμε κάνει login σαν administrator και να έχουμε πάρει το αντίστοιχο auth key
+Note: It presupposes that we have logged in as administrator and we have received the corresponding auth key
 </pre>
 </br>
 <pre>
@@ -154,12 +154,13 @@ Product's info updated: {
     "price": 3.8
 }
 
-->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
-  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
-->Στην περίπτωση που το _id δεν υπάρχει τότε μας εμφανίζεται:
-  Product dosen't exists in DB.
 
-Σημ: Προυποθέτει να έχουμε κάνει login σαν administrator και να έχουμε πάρει το αντίστοιχο auth key
+-> In case one of the uuid is not in the list then
+   it returns us "You have no authorization, get out!" (status = 401)
+-> In case _id does not exist then it returns:
+   Product dosen't exists in DB.
+
+Note: It presupposes that we have logged in as administrator and we have received the corresponding auth key
 </pre>
 </br>
 <pre>
@@ -220,13 +221,13 @@ Found 4 product(s) with  the category: Dairy Products [
     }
 ]
 
-->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
-  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
+->In case one of the uuid is not in the list then
+  it returns "You don't have authorization, get out!" (status=401)
 ->Search by name => alphabetical sort
 ->Search by price => price sort
-->Στην περίπτωση που το το search αποτυγχάνει πάντα εμφανίζεται κάποιο αντίστοιχο μήνυμα
+->In case the search fails, always corresponding message is displayed
 
-Σημ: Προυποθέτει να έχουμε κάνει login σαν απλός χρήστης και να έχουμε πάρει το αντίστοιχο auth key
+Note: It presupposes that we have logged in as an ordinary user and have received the corresponding auth key
 </pre>
 </br>
 <pre>
@@ -250,14 +251,14 @@ Product Added to cart{
     "60bf71b0fe789a2bdd2da523": 2
 }
 
-->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
-  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
-->Στην περίπτωση που το id του προιοντος δεν υπάρχει ή αν το quantity δεν ειναι int,
-  τότε έχουμε αντίστοιχα μηνύματα σφάλματος
-->Αν ξαναστείλουμε το request τότε απλά για το ίδιο id το quantity αυξάνεται ανάλογα με το request.
-->Πάντα ελέγχεται να μην υπερβαίνουμε το απόθεμα του προίοντος
+->In case one of the uuid is not in the list then
+  it returns "You don't have authorization, get out!" (status=401)
+->In case the product id does not exist or if the quantity is not int,
+  then we have corresponding error messages
+->If we resend the request then just for the same id the quantity increases depending on the request.
+->It is always checked not to exceed the stock of the product
 
-Σημ: Προυποθέτει να έχουμε κάνει login σαν απλός χρήστης και να έχουμε πάρει το αντίστοιχο auth key
+Note: It presupposes that we have logged in as a simple user and have received the corresponding auth key
 </pre>
 </br>
 <pre>
@@ -280,12 +281,12 @@ Here is your cart
 }
 Total: 51.96
 
-->Στην περίπτωση που δεν έχει μπει κανένα προιόν στο καλάθι τότε
-  μας επιστρέφει "First you have to add products to cart." (status=200)
-->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
-  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
-
-Σημ: Προυποθέτει να έχουμε κάνει login σαν απλός χρήστης και να έχουμε πάρει το αντίστοιχο auth key
+->In case no product has been added to the cart then
+  returns us "First you have to add products to cart." (status = 200)
+->In case one of the uuid is not in the list then
+  returns us "You do not have authorization, get out!" (status = 401)
+   
+Note: It presupposes that we have logged in as a simple user and have received the corresponding auth key
 </pre>
 </br>
 <pre>
@@ -308,14 +309,14 @@ Your new cart
 }
 Total: 48.16
 
-->Στην περίπτωση που το καλάθι μας είναι άδειο τότε δεν μπορεί να δαιγραφεί κάποιο προιον και άρα
-  μας επιστρέφει "First you have to add products to cart." (status=500)
-->Στην περίπτωση που το προιον δεν υπάρχει στο καλάθι
-  μας επιστρέφει "Product has not been added to cart." (status=500)
-->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
-  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
+->In case our cart is empty then no product can be copied and therefore
+  returns us "First you have to add products to cart." (status = 500)
+->In case the product is not in the cart
+  Our return "Product has not been added to cart." (status = 500)
+->In case one of the uuid is not in the list then
+  returns us "You do not have authorization, get out!" (status = 401)
 
-Σημ: Προυποθέτει να έχουμε κάνει login σαν απλός χρήστης και να έχουμε πάρει το αντίστοιχο auth key
+Note: It presupposes that we have logged in as a simple user and have received the corresponding auth key
 </pre>
 </br>
 <pre>
@@ -351,15 +352,14 @@ Thank you for choosing us!
 ***09/06/2021 09: 16: 55***
 
 
+->In case we have not given int or 16-digit int as "card_no" then
+  it returns us "You have to enter a 16-digit number" (status = 500)
+->In case the basket is empty
+  it returns "Cart is empty." (status = 500)
+->In case one of the uuid is not in the list then
+  it returns us "You do not have authorization, get out!" (status = 401)
 
-->Στην περίπτωση που δεν έχουμε δώσει int ή 16ψηφιο int σαν "card_no" τότε
-  μας επιστρέφει "You have to enter a 16-digit number" (status=500)
-->Στην περίπτωση που το καλάθι είναι άδειο
-  μας επιστρέφει "Cart is empty." (status=500)
-->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
-  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
-
-Σημ: Προυποθέτει να έχουμε κάνει login σαν απλός χρήστης και να έχουμε πάρει το αντίστοιχο auth key
+Note: It presupposes that we have logged in as a simple user and have received the corresponding auth key
 </pre>
 </br>
 <pre>
@@ -386,12 +386,12 @@ Details: [
     }
 ]
 
-->Στην περίπτωση που δεν έχουμε κάνει καμία παραγγελία δηλ. orderHistory == 0
-  μας επιστρέφει "You have to place an order first" (status=500)
-->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
-  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
+->In case we have not placed any order ie orderHistory == 0
+  response: "You have to place an order first" (status = 500)
+->In case one of the uuid is not in the list then it
+  returns us "You do not have authorization, get out!" (status = 401)
 
-Σημ: Προυποθέτει να έχουμε κάνει login σαν απλός χρήστης και να έχουμε πάρει το αντίστοιχο auth key
+Note: It presupposes that we have logged in as a simple user and have received the corresponding auth key
 </pre>
 </br>
 <pre>
@@ -409,9 +409,9 @@ Response:
 You are logged out.
 And your account has been removed.
 
-->Στην περίπτωση που κάποιο απο τo uuid δεν υπάρχει στην λίστα τότε
-  μας επιστρέφρει "You don't have authorization, get out!" (status=401)
+->In case one of the uuid is not in the list then
+  returns us "You do not have authorization, get out!" (status = 401)
 
-Σημ: Προυποθέτει να έχουμε κάνει login σαν απλός χρήστης και να έχουμε πάρει το αντίστοιχο auth key
+Note: It presupposes that we have logged in as a simple user and have received the corresponding auth key
 </pre>
 </div>
