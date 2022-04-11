@@ -1,52 +1,36 @@
+<div>
 <h1>DSMarkets</h1>
 <p>Containerized Web App using Docker, Flask, MongoDB</p>
+<p>In this web app you can register, login, add/edit/remove products, add products to cart, get product info, and place order via webservices<br>You can download Postman to send the requests at server!</p>
+</div>
 <br><hr><br>
 
-<h3>Οδηγίες εκτέλεσης</h3>
-Όπως ζητήθηκε έχει γίνει containerize το web service που καλούμαστε να υλοποιήσουμε,<br/>
-το docker-compose είναι υπεύθυνο για την ταυτόχρονη λειτουργία των 2 container (MongoDB, Flask)<br/>
-Ενώ το Docker image έχει base os Ubuntu 18.04, Python3, pip, data folder*, expose πόρτα 5000, entrypoint το "service.py"<br/>
-1) Κάνουμε clone το repo<br/>
-2) Αλλάζουμε dir στον "dsmarkets"<br/>
-<pre>
-	$ cd dsmarkets
-	$ ls 
-	docker-compose.yml  flask
-</pre>
-3) Από τον φάκελο που βρίσκονται τα δύο αρχεία docker-compose.yml και flask, τρέχουμε to docker με εντολή<br/>
-<pre>
-	$ docker-compose up -d
-</pre>
-4) Οταν τα 2 containers τρέχουν θα έχουμε το εξής μήνυμα:<br/>
-![Containers Ready](https://raw.githubusercontent.com/sonole/sonole/main/assets/containers_ready.jpg)
-5) Έπειτα αντιγράφουμε τα δύο collections στο container mongodb με την εξής εντολή:<br/>
-<pre>
-	$ docker cp flask/data/users.json mongodb:/users.json && docker cp flask/data/products.json mongodb:/products.json
-</pre>
-6) Τέλος κάνουμε import στην βάση InfoSys τα δύο αρχεία με την εξής εντολή:<br/>
-<pre>
-	$ docker exec -it mongodb mongoimport --db=InfoSys --collection=Users --file=users.json && docker exec -it mongodb mongoimport --db=InfoSys --collection=Products --file=products.json
-</pre>
-7) Επιβεβαιώνουμε οτι το flask service τρέχει χωρίς κάποιο πρόβλημα<br/>
-<pre>
-	$ docker logs flask
-</pre>
-![Flask Up And Running](https://raw.githubusercontent.com/sonole/sonole/main/assets/flask_ok.jpg)
+<div>
+<h3>How to run this project</h3>
+<p>docker-compose is responsible for the simultaneous operation of 2 containers (MongoDB, Flask)<br>
+While the Docker image has base os Ubuntu 18.04, Python3, pip, data folder*, expose port 5000, and as entrypoint the service.py"</p>
+<ol>
+<li><p>Clone repo and then cd dsmarkets</p><pre>$ cd dsmarkets<br>$ ls><br>docker-compose.yml  flask</pre></li>
+<li><p>From this folder run docker with the command:</p><pre>$ docker-compose up -d</pre></li>
+<li><p>When the 2 containers are running we will have the following message:</p>
+<img src="https://raw.githubusercontent.com/sonole/sonole/main/assets/containers_ready.jpg" lt="Containers Ready"/></li>
+<li><p>Coppy the 2 collections at mongodb container:</p>
+<pre>$ docker cp flask/data/users.json mongodb:/users.json && docker cp flask/data/products.json mongodb:/products.json</pre></li>
+<li><p>Finally, import at InfoSys b the 2 files:</p>
+<pre>$ docker exec -it mongodb mongoimport --db=InfoSys --collection=Users --file=users.json && docker exec -it mongodb mongoimport --db=InfoSys --collection=Products --file=products.json</pre></li>
+<li><p>Confirm that flask service is up and running without problem</p><pre>$ docker logs flask</pre>
+<img src="https://raw.githubusercontent.com/sonole/sonole/main/assets/flask_ok.jpg" lt="Flask Up And Running"/>
+</ol>
+<p>Note:<br>
+Since in this information system the users who can register through the web-service <br>
+have rights only as an ordinary user and not as an administrator, to add an administrator we run:<br>
+<pre>$ docker exec -it mongodb mongo --port 27017<br>$ db.Users.insertOne({"email":"admin@dsmarket.com","password":"admin","category":"administrator"})</pre>	
+At "Users" collection we already added, the above admin has been already been added</p>
+</div>
+<br><hr><br>
 
-<br/>
-Σημείωση:
-Μιας και στο συγκεκριμένο πληροφοριακό σύστημα οι χρήστες που μπορούν να κάνουν εγγραφη μέσο του web-service<br/>
-έχουν δικαιώματα μόνο σαν απλός χρήστης και όχι σαν διαχειριστής, για να προσθέσουμε έναν administrator εκτελούμε:<br/>
-<pre>
-	$ docker exec -it mongodb mongo --port 27017
-	$ db.Users.insertOne({"email":"admin@dsmarket.com","password":"admin","category":"administrator"})
-</pre>
-Στο collection "Users" που προσθέσαμε στο βήμα 5, ο παραπάνω διαχειριστής έχει προστεθεί ήδη.<br/>
-
-<br/>
-<hr>
-
-### Παρακάτω βρίσκονται τα παραδείγματα εκτελέσεων requests και των απαντησεων που παίρνουμε σε κάθε entrypoint :
+<div>
+<h3>Below are the examples of requests and the responses we get at each entrypoint</h3>
 <pre>
 ###########################
 ### 1 User Registration ###
@@ -430,3 +414,4 @@ And your account has been removed.
 
 Σημ: Προυποθέτει να έχουμε κάνει login σαν απλός χρήστης και να έχουμε πάρει το αντίστοιχο auth key
 </pre>
+</div>
