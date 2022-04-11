@@ -10,7 +10,7 @@
 <p>docker-compose is responsible for the simultaneous operation of 2 containers (MongoDB, Flask)<br>
 While the Docker image has base os Ubuntu 18.04, Python3, pip, data folder*, expose port 5000, and as entrypoint the service.py"</p>
 <ol>
-<li><p>Clone repo and then cd dsmarkets</p><pre>$ cd dsmarkets<br>$ ls><br>docker-compose.yml  flask</pre></li>
+<li><p>Clone repo and then cd dsmarkets</p><pre>$ cd dsmarkets<br>$ ls<br>docker-compose.yml  flask</pre></li>
 <li><p>From this folder run docker with the command:</p><pre>$ docker-compose up -d</pre></li>
 <li><p>When the 2 containers are running we will have the following message:</p>
 <img src="https://raw.githubusercontent.com/sonole/sonole/main/assets/containers_ready.jpg" lt="Containers Ready"/></li>
