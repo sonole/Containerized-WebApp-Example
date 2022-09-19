@@ -13,13 +13,13 @@ While the Docker image has base os Ubuntu 18.04, Python3, pip, data folder*, exp
 <li><p>Clone repo and then cd dsmarkets</p><pre>$ cd dsmarkets<br>$ ls<br>docker-compose.yml  flask</pre></li>
 <li><p>From this folder run docker with the command:</p><pre>$ docker-compose up -d</pre></li>
 <li><p>When the 2 containers are running we will have the following message:</p>
-<img src="https://raw.githubusercontent.com/sonole/sonole/main/assets/containers_ready.jpg" lt="Containers Ready"/></li>
+<img src="https://apaliampelos.me/assets/images/github/containerized-webapp-example/containers_ready.jpg" lt="Containers Ready"/></li>
 <li><p>Coppy the 2 collections at mongodb container:</p>
 <pre>$ docker cp flask/data/users.json mongodb:/users.json && docker cp flask/data/products.json mongodb:/products.json</pre></li>
 <li><p>Finally, import at InfoSys b the 2 files:</p>
 <pre>$ docker exec -it mongodb mongoimport --db=InfoSys --collection=Users --file=users.json && docker exec -it mongodb mongoimport --db=InfoSys --collection=Products --file=products.json</pre></li>
 <li><p>Confirm that flask service is up and running without problem</p><pre>$ docker logs flask</pre>
-<img src="https://raw.githubusercontent.com/sonole/sonole/main/assets/flask_ok.jpg" lt="Flask Up And Running"/>
+<img src="https://apaliampelos.me/assets/images/github/containerized-webapp-example/flask_ok.jpg" lt="Flask Up And Running"/>
 </ol>
 <p>Note:<br>
 Since in this information system the users who can register through the web-service <br>
