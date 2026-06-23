@@ -1,43 +1,43 @@
 <div>
+<img src="assets/main.webp" alt="DSMarkets Banner" width="100%"/>
 <h1>DSMarkets</h1>
-<p>Containerized Web App using Docker, Flask, MongoDB</p>
-<p>In this web app you can register, login, add/edit/remove products, add products to cart, get product info, and place order via webservices<br>You can download Postman to send the requests at server!</p>
+<p>Containerized Web App using Docker, Flask, and MongoDB</p>
+<p>In this web app you can register, log in, add/edit/remove products, add products to a cart, get product info, and place an order via web services.<br>You can download Postman to send requests to the server!</p>
 </div>
 <br><hr><br>
 
 <div>
 <h3>How to run this project</h3>
-<p>docker-compose is responsible for the simultaneous operation of 2 containers (MongoDB, Flask)<br>
-While the Docker image has base os Ubuntu 18.04, Python3, pip, data folder*, expose port 5000, and as entrypoint the service.py"</p>
+<p>docker-compose is responsible for the simultaneous operation of 2 containers (MongoDB, Flask).<br>
+The Docker image is based on Ubuntu 18.04, uses Python3 and pip, includes a data folder*, exposes port 5000, and uses <code>service.py</code> as its entrypoint.</p>
 <ol>
-<li><p>Clone repo and then cd dsmarkets</p><pre>$ cd dsmarkets<br>$ ls<br>docker-compose.yml  flask</pre></li>
-<li><p>From this folder run docker with the command:</p><pre>$ docker-compose up -d</pre></li>
-<li><p>When the 2 containers are running we will have the following message:</p>
-<img src="https://apaliampelos.me/assets/images/github/containerized-webapp-example/containers_ready.jpg" lt="Containers Ready"/></li>
-<li><p>Coppy the 2 collections at mongodb container:</p>
+<li><p>Clone the repo and then cd into dsmarkets:</p><pre>$ cd dsmarkets<br>$ ls<br>docker-compose.yml  flask</pre></li>
+<li><p>From this folder run Docker with the command:</p><pre>$ docker-compose up -d</pre></li>
+<li><p>When the 2 containers are running you will see the following message:</p>
+<img src="assets/containers_ready.jpg" alt="Containers Ready"/></li>
+<li><p>Copy the 2 collections to the MongoDB container:</p>
 <pre>$ docker cp flask/data/users.json mongodb:/users.json && docker cp flask/data/products.json mongodb:/products.json</pre></li>
-<li><p>Finally, import at InfoSys b the 2 files:</p>
+<li><p>Finally, import the 2 files into the InfoSys database:</p>
 <pre>$ docker exec -it mongodb mongoimport --db=InfoSys --collection=Users --file=users.json && docker exec -it mongodb mongoimport --db=InfoSys --collection=Products --file=products.json</pre></li>
-<li><p>Confirm that flask service is up and running without problem</p><pre>$ docker logs flask</pre>
-<img src="https://apaliampelos.me/assets/images/github/containerized-webapp-example/flask_ok.jpg" lt="Flask Up And Running"/>
+<li><p>Confirm that the Flask service is up and running without issues:</p><pre>$ docker logs flask</pre>
+<img src="assets/flask_ok.jpg" alt="Flask Up And Running"/></li>
 </ol>
 <p>Note:<br>
-Since in this information system the users who can register through the web-service <br>
-have rights only as an ordinary user and not as an administrator, to add an administrator we run:<br>
-<pre>$ docker exec -it mongodb mongo --port 27017<br>$ db.Users.insertOne({"email":"admin@dsmarket.com","password":"admin","category":"administrator"})</pre>	
-At "Users" collection we already added, the above admin has been already been added</p>
+Since users who register through the web service are granted only regular user privileges (not administrator), to add an administrator run:<br>
+<pre>$ docker exec -it mongodb mongo --port 27017<br>$ db.Users.insertOne({"email":"admin@dsmarket.com","password":"admin","category":"administrator"})</pre>
+The above admin account has already been added to the <code>Users</code> collection.</p>
 </div>
 <br><hr><br>
 
 <div>
-<h3>Below are the examples of requests and the responses we get at each entrypoint</h3>
+<h3>Below are examples of requests and the responses received at each endpoint</h3>
 <pre>
 ###########################
 ### 1 User Registration ###
 ###########################
 Request:
 Type: POST
-Url : http://0.0.0.0:5000//userRegistration
+Url : http://0.0.0.0:5000/userRegistration
 Body:
 {
     "email": "alex@gmail.com", 
@@ -48,7 +48,7 @@ Response:
 alex was added to the MongoDB (status=200)
 
 In case the email already exists it
-returns us "A user with the given email already exists" (status = 400)
+returns "A user with the given email already exists" (status = 400)
 </pre>
 </br>
 <pre>
@@ -71,8 +71,8 @@ Response:
 }
 
 
-In case the email + pass combination does not exist
-it returns us "Wrong email or password" (status=400)
+In case the email + password combination does not exist
+it returns "Wrong email or password" (status=400)
 </pre>
 </br>
 <pre>
@@ -100,10 +100,10 @@ Body:
 Response:
 The product with name 'Jose Cuervo Tequila Silver 700ML' was added to the MongoDB
 
-->In case one of the uuid is not in the list then
-  it returns us "You do not have authorization, get out!" (status = 401)
+-> If the UUID is not in the list then
+   it returns "You do not have authorization, get out!" (status = 401)
 
-Note: It presupposes that we have logged in as administrator and we have received the corresponding auth key
+Note: This endpoint requires logging in as an administrator and using the corresponding auth key.
 </pre>
 </br>
 <pre>
@@ -122,12 +122,12 @@ Body:
 Response:
 Product with id: 60be81cf8db7ab143482ccf7, was deleted.
 
--> In case one of the uuid is not in the list then
-   it returns us "You have no authorization, get out!" (status = 401)
--> In case _id does not exist then it returns:
+-> If the UUID is not in the list then
+   it returns "You have no authorization, get out!" (status = 401)
+-> If the _id does not exist then it returns:
    "Product with ID: 60be81cf8db7ab143482ccf7, not available on DB."
 
-Note: It presupposes that we have logged in as administrator and we have received the corresponding auth key
+Note: This endpoint requires logging in as an administrator and using the corresponding auth key.
 </pre>
 </br>
 <pre>
@@ -155,12 +155,12 @@ Product's info updated: {
 }
 
 
--> In case one of the uuid is not in the list then
-   it returns us "You have no authorization, get out!" (status = 401)
--> In case _id does not exist then it returns:
-   Product dosen't exists in DB.
+-> If the UUID is not in the list then
+   it returns "You have no authorization, get out!" (status = 401)
+-> If the _id does not exist then it returns:
+   "Product doesn't exist in DB."
 
-Note: It presupposes that we have logged in as administrator and we have received the corresponding auth key
+Note: This endpoint requires logging in as an administrator and using the corresponding auth key.
 </pre>
 </br>
 <pre>
@@ -182,7 +182,7 @@ or
 
 
 Response:
-Found 4 product(s) with  the category: Dairy Products [
+Found 4 product(s) with the category: Dairy Products [
     {
         "name": "Fresko Gala Elafry 1,5% Lipara 1 lt, OLYMPOS",
         "description": "Το 100% ελληνικό φρέσκο επιλεγμένο γάλα ΟΛΥΜΠΟΣ συλλέγεται καθημερινά 
@@ -221,13 +221,13 @@ Found 4 product(s) with  the category: Dairy Products [
     }
 ]
 
-->In case one of the uuid is not in the list then
-  it returns "You don't have authorization, get out!" (status=401)
-->Search by name => alphabetical sort
-->Search by price => price sort
-->In case the search fails, always corresponding message is displayed
+-> If the UUID is not in the list then
+   it returns "You don't have authorization, get out!" (status=401)
+-> Search by name => alphabetical sort
+-> Search by price => price sort
+-> If the search fails, a corresponding error message is displayed
 
-Note: It presupposes that we have logged in as an ordinary user and have received the corresponding auth key
+Note: This endpoint requires logging in as a regular user and using the corresponding auth key.
 </pre>
 </br>
 <pre>
@@ -251,14 +251,14 @@ Product Added to cart{
     "60bf71b0fe789a2bdd2da523": 2
 }
 
-->In case one of the uuid is not in the list then
-  it returns "You don't have authorization, get out!" (status=401)
-->In case the product id does not exist or if the quantity is not int,
-  then we have corresponding error messages
-->If we resend the request then just for the same id the quantity increases depending on the request.
-->It is always checked not to exceed the stock of the product
+-> If the UUID is not in the list then
+   it returns "You don't have authorization, get out!" (status=401)
+-> If the product ID does not exist or if the quantity is not an integer,
+   a corresponding error message is returned
+-> Resending the request for the same ID will increase the quantity accordingly
+-> The stock limit of the product is always enforced
 
-Note: It presupposes that we have logged in as a simple user and have received the corresponding auth key
+Note: This endpoint requires logging in as a regular user and using the corresponding auth key.
 </pre>
 </br>
 <pre>
@@ -281,12 +281,12 @@ Here is your cart
 }
 Total: 51.96
 
-->In case no product has been added to the cart then
-  returns us "First you have to add products to cart." (status = 200)
-->In case one of the uuid is not in the list then
-  returns us "You do not have authorization, get out!" (status = 401)
+-> If no product has been added to the cart then
+   it returns "First you have to add products to cart." (status = 200)
+-> If the UUID is not in the list then
+   it returns "You do not have authorization, get out!" (status = 401)
    
-Note: It presupposes that we have logged in as a simple user and have received the corresponding auth key
+Note: This endpoint requires logging in as a regular user and using the corresponding auth key.
 </pre>
 </br>
 <pre>
@@ -309,14 +309,14 @@ Your new cart
 }
 Total: 48.16
 
-->In case our cart is empty then no product can be copied and therefore
-  returns us "First you have to add products to cart." (status = 500)
-->In case the product is not in the cart
-  Our return "Product has not been added to cart." (status = 500)
-->In case one of the uuid is not in the list then
-  returns us "You do not have authorization, get out!" (status = 401)
+-> If the cart is empty then
+   it returns "First you have to add products to cart." (status = 500)
+-> If the product is not in the cart then
+   it returns "Product has not been added to cart." (status = 500)
+-> If the UUID is not in the list then
+   it returns "You do not have authorization, get out!" (status = 401)
 
-Note: It presupposes that we have logged in as a simple user and have received the corresponding auth key
+Note: This endpoint requires logging in as a regular user and using the corresponding auth key.
 </pre>
 </br>
 <pre>
@@ -352,14 +352,14 @@ Thank you for choosing us!
 ***09/06/2021 09: 16: 55***
 
 
-->In case we have not given int or 16-digit int as "card_no" then
-  it returns us "You have to enter a 16-digit number" (status = 500)
-->In case the basket is empty
-  it returns "Cart is empty." (status = 500)
-->In case one of the uuid is not in the list then
-  it returns us "You do not have authorization, get out!" (status = 401)
+-> If "card_no" is not a 16-digit integer then
+   it returns "You have to enter a 16-digit number" (status = 500)
+-> If the cart is empty then
+   it returns "Cart is empty." (status = 500)
+-> If the UUID is not in the list then
+   it returns "You do not have authorization, get out!" (status = 401)
 
-Note: It presupposes that we have logged in as a simple user and have received the corresponding auth key
+Note: This endpoint requires logging in as a regular user and using the corresponding auth key.
 </pre>
 </br>
 <pre>
@@ -386,12 +386,12 @@ Details: [
     }
 ]
 
-->In case we have not placed any order ie orderHistory == 0
-  response: "You have to place an order first" (status = 500)
-->In case one of the uuid is not in the list then it
-  returns us "You do not have authorization, get out!" (status = 401)
+-> If no order has been placed (orderHistory == 0) then
+   it returns "You have to place an order first." (status = 500)
+-> If the UUID is not in the list then
+   it returns "You do not have authorization, get out!" (status = 401)
 
-Note: It presupposes that we have logged in as a simple user and have received the corresponding auth key
+Note: This endpoint requires logging in as a regular user and using the corresponding auth key.
 </pre>
 </br>
 <pre>
@@ -409,9 +409,9 @@ Response:
 You are logged out.
 And your account has been removed.
 
-->In case one of the uuid is not in the list then
-  returns us "You do not have authorization, get out!" (status = 401)
+-> If the UUID is not in the list then
+   it returns "You do not have authorization, get out!" (status = 401)
 
-Note: It presupposes that we have logged in as a simple user and have received the corresponding auth key
+Note: This endpoint requires logging in as a regular user and using the corresponding auth key.
 </pre>
 </div>
